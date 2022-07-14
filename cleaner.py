@@ -2,13 +2,9 @@ import csv
 import pandas as pd
 df = pd.read_csv("main.csv")
 print(df.shape)
-del df["Star_luminosity"]
-df = df[df["Distance_1"].notna()]
-df = df[df["Star_Mass_1"].notna()]
-df = df[df["Star_Radius_1"].notna()]
-df = df[df["Star_Name"].notna()]
-df = df[df["Star_Mass"].notna()]
-df = df[df["Star_Radius"].notna()]
-df = df[df["Distance"].notna()]
-print(df.shape)
-df.to_csv("final.csv" , index=False)
+df.drop(["Unnamed: 0","Star_Name", "Star_Mass", "Star_Radius" , "Distance" , "Star_luminosity"] , axis=1 , inplace=True)
+final = df.dropna()
+final.reset_index(drop=True,inplace = True)
+print(final)
+print(final.info())
+final.to_csv("final.csv" , index=False)
